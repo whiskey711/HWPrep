@@ -3,11 +3,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        shootingScores(
-                13,
-                new int[]{3,3,7,4,4,4,4,7,7,3,5,5,5},
-                new int[]{53,80,68,24,39,76,66,16,100,55,53,80,55}
-        );
+        fiveKeys("1 1 5 1 5 2 4 4");
     }
 
     static String splitStrings(int k, String s) {
@@ -86,5 +82,47 @@ public class Main {
         )).forEach(
                 s -> System.out.println(s.getKey())
         );
+    }
+
+    static void fiveKeys(String input) {
+        StringBuilder screen = new StringBuilder();
+        StringBuilder clipboard = new StringBuilder();
+        boolean selection = false;
+        String[] inputArray = input.split(" ");
+        for (String in : inputArray) {
+            switch (in) {
+                case "1": // type a
+                    if (selection){
+                        screen = new StringBuilder("a");
+                        selection = false;
+                    }
+                    else screen.append("a");
+                    break;
+                case "2": // ctrl c
+                    if (selection) clipboard = screen;
+                    break;
+                case "3": // ctrl x
+                    if (selection){
+                        clipboard = screen;
+                        screen = new StringBuilder();
+                        selection = false;
+                    }
+                    break;
+                case "4": // ctrl v
+                    if (selection) {
+                        screen = clipboard;
+                        selection = false;
+                    } else screen.append(clipboard);
+                    break;
+                case "5": // ctrl a
+                    selection = true;
+                    break;
+            }
+
+        }
+        System.out.println("screen");
+        System.out.println(screen);
+        System.out.println("clipboard");
+        System.out.println(clipboard);
     }
 }
